@@ -12,6 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <version.number>0.0.0</version.number>
         <jts.version>1.18.1</jts.version>
+        <jgrapht.version>1.4.0</jgrapht.version>
     </properties>
 
     <dependencies>
@@ -23,7 +24,7 @@
         <dependency>
             <groupId>org.jgrapht</groupId>
             <artifactId>jgrapht-core</artifactId>
-            <version>1.5.1</version>
+            <version>${jgrapht.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openjump</groupId>
