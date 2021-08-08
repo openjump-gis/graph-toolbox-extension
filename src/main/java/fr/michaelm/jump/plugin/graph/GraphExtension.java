@@ -36,8 +36,9 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
  * <li>CycleFinderPlugIn : computes a graph from a linear network and find base cycles</li>
  * </ul>
  * @author Micha&euml;l Michaud
- * @version 1.0.0 (2021-03-20)
+ * @version 1.1.0 (2021-08-08)
  */
+//version 1.1.0 (2021-08-08) Refactoring to use new I18N and FeatureInstaller
 //version 1.0.0 (2021-04-10) Refactoring for OpenJUMP 2 / JTS 1.18.1+
 //                           Rename StrahlerNumberPlugIn to StreamOrderPlugIn
 //                           fix skeletonizer (branches around holes were not eliminated)

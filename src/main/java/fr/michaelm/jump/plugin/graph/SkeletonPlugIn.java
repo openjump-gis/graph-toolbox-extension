@@ -1,9 +1,9 @@
 package fr.michaelm.jump.plugin.graph;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.*;
 import com.vividsolutions.jump.geom.Angle;
 import com.vividsolutions.jump.task.TaskMonitor;
-import com.vividsolutions.jump.workbench.WorkbenchContext;
 import com.vividsolutions.jump.workbench.model.LayerManager;
 import com.vividsolutions.jump.workbench.model.StandardCategoryNames;
 import com.vividsolutions.jump.workbench.plugin.EnableCheckFactory;
@@ -12,7 +12,6 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
 import com.vividsolutions.jump.workbench.ui.GUIUtil;
 import com.vividsolutions.jump.workbench.ui.MenuNames;
 import com.vividsolutions.jump.workbench.ui.MultiInputDialog;
-import com.vividsolutions.jump.workbench.ui.plugin.FeatureInstaller;
 import fr.michaelm.jump.feature.jgrapht.GraphFactory;
 import org.jgrapht.graph.Pseudograph;
 import org.jgrapht.graph.WeightedPseudograph;
@@ -40,6 +39,8 @@ import java.util.*;
  */
 public class SkeletonPlugIn extends AbstractThreadedUiPlugIn {
 
+    private static final I18N i18n = I18N.getInstance("fr.michaelm.jump.plugin.graph");
+
     private static final String P_LAYER_NAME               = "LayerName";
     private static final String P_AUTO_WIDTH               = "AutoWidth";
     private static final String P_MIN_WIDTH                = "MinWidth";
@@ -49,22 +50,22 @@ public class SkeletonPlugIn extends AbstractThreadedUiPlugIn {
     private static final String P_MEAN_WIDTH               = "MeanWidth"; // Internal intermediate result
     private static final String P_MAX_ITERATION            = "MaxIteration";
 
-    private static final String GRAPH                   = I18NPlug.getI18N("Graph");
-    private static final String CENTRAL_SKELETON        = I18NPlug.getI18N("SkeletonPlugIn");
-    private static final String SKELETONIZE             = I18NPlug.getI18N("SkeletonPlugIn.skeletonize");
-    private static final String SOURCE_LAYER            = I18NPlug.getI18N("SkeletonPlugIn.source-layer");
-    private static final String AUTO_WIDTH_PARAMETER    = I18NPlug.getI18N("SkeletonPlugIn.auto-width-parameter");
-    private static final String AUTO_WIDTH_PARAMETER_TT = I18NPlug.getI18N("SkeletonPlugIn.auto-width-parameter-tooltip");
-    private static final String MIN_WIDTH               = I18NPlug.getI18N("SkeletonPlugIn.min-width");
-    private static final String MIN_WIDTH_TT            = I18NPlug.getI18N("SkeletonPlugIn.min-width-tooltip");
-    private static final String MIN_FORK_LENGTH_FROM_MEAN_WIDTH    = I18NPlug.getI18N("SkeletonPlugIn.min-fork-length-from-mean-width");
-    private static final String MIN_FORK_LENGTH_FROM_MEAN_WIDTH_TT = I18NPlug.getI18N("SkeletonPlugIn.min-fork-length-from-mean-width-tooltip");
-    private static final String MIN_FORK_LENGTH         = I18NPlug.getI18N("SkeletonPlugIn.min-fork-length");
-    private static final String MIN_FORK_LENGTH_TT      = I18NPlug.getI18N("SkeletonPlugIn.min-fork-length-tooltip");
-    private static final String SNAP_TO_BOUNDARY        = I18NPlug.getI18N("SkeletonPlugIn.snap-to_boundary");
-    private static final String SNAP_TO_BOUNDARY_TT     = I18NPlug.getI18N("SkeletonPlugIn.snap-to_boundary-tooltip");
-    private static final String DISPLAY_VORONOI_EDGES   = I18NPlug.getI18N("SkeletonPlugIn.display-voronoi-edges");
-    private static final String DESCRIPTION             = I18NPlug.getI18N("SkeletonPlugIn.description");
+    private static final String GRAPH                   = i18n.get("Graph");
+    private static final String CENTRAL_SKELETON        = i18n.get("SkeletonPlugIn");
+    private static final String SKELETONIZE             = i18n.get("SkeletonPlugIn.skeletonize");
+    private static final String SOURCE_LAYER            = i18n.get("SkeletonPlugIn.source-layer");
+    private static final String AUTO_WIDTH_PARAMETER    = i18n.get("SkeletonPlugIn.auto-width-parameter");
+    private static final String AUTO_WIDTH_PARAMETER_TT = i18n.get("SkeletonPlugIn.auto-width-parameter-tooltip");
+    private static final String MIN_WIDTH               = i18n.get("SkeletonPlugIn.min-width");
+    private static final String MIN_WIDTH_TT            = i18n.get("SkeletonPlugIn.min-width-tooltip");
+    private static final String MIN_FORK_LENGTH_FROM_MEAN_WIDTH    = i18n.get("SkeletonPlugIn.min-fork-length-from-mean-width");
+    private static final String MIN_FORK_LENGTH_FROM_MEAN_WIDTH_TT = i18n.get("SkeletonPlugIn.min-fork-length-from-mean-width-tooltip");
+    private static final String MIN_FORK_LENGTH         = i18n.get("SkeletonPlugIn.min-fork-length");
+    private static final String MIN_FORK_LENGTH_TT      = i18n.get("SkeletonPlugIn.min-fork-length-tooltip");
+    private static final String SNAP_TO_BOUNDARY        = i18n.get("SkeletonPlugIn.snap-to_boundary");
+    private static final String SNAP_TO_BOUNDARY_TT     = i18n.get("SkeletonPlugIn.snap-to_boundary-tooltip");
+    private static final String DISPLAY_VORONOI_EDGES   = i18n.get("SkeletonPlugIn.display-voronoi-edges");
+    private static final String DESCRIPTION             = i18n.get("SkeletonPlugIn.description");
 
     double SQRT2 = Math.sqrt(2.0);
 
@@ -87,26 +88,22 @@ public class SkeletonPlugIn extends AbstractThreadedUiPlugIn {
     private boolean displayVoronoiEdges   = false;
 
     public void initialize(PlugInContext context) {
-
-        workbenchContext = context.getWorkbenchContext();
-        FeatureInstaller featureInstaller = new FeatureInstaller(workbenchContext);
-        featureInstaller.addMainMenuPlugin(
-                this,
+        context.getFeatureInstaller().addMainMenuPlugin(this,
                 new String[] {MenuNames.PLUGINS, GRAPH},
                 CENTRAL_SKELETON + "...",
-                false,			//checkbox
+                false,
                 new ImageIcon(this.getClass().getResource("Skeleton.png")),
-                createEnableCheck(context.getWorkbenchContext()));
+                getEnableCheck(context));
     }
 
     @Override
     public String getName() {
         // Otherwise, I18N class looks for SkeletonPlugIn key in the main OpenJUMP resource file
-        return I18NPlug.getI18N("SkeletonPlugIn");
+        return i18n.get("SkeletonPlugIn");
     }
 
-    private static MultiEnableCheck createEnableCheck(WorkbenchContext workbenchContext) {
-        EnableCheckFactory checkFactory = new EnableCheckFactory(workbenchContext);
+    public MultiEnableCheck getEnableCheck(PlugInContext context) {
+        EnableCheckFactory checkFactory = context.getCheckFactory();
         return new MultiEnableCheck().add(checkFactory.createAtLeastNLayersMustExistCheck(1));
     }
 
@@ -410,7 +407,7 @@ public class SkeletonPlugIn extends AbstractThreadedUiPlugIn {
         // 3 - Merge filtered edges
         LineMerger merger = new LineMerger();
         merger.add(edges);
-        edges = new HashSet<>(merger.getMergedLineStrings());
+        edges = new HashSet<LineString>(merger.getMergedLineStrings());
 
         if (displayVoronoiEdges) list.addAll(edges);
 

@@ -24,6 +24,7 @@
 package fr.michaelm.jump.plugin.graph;
 
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.*;
 import com.vividsolutions.jump.task.TaskMonitor;
 import com.vividsolutions.jump.workbench.model.Layer;
@@ -61,6 +62,8 @@ import javax.swing.JComboBox;
 //version 0.1.1 (2010-04-22) first svn version
 //version 0.1 (2008-02-02)
 public class CycleFinderPlugIn extends ThreadedBasePlugIn {
+
+    private final I18N i18n = I18N.getInstance("fr.michaelm.jump.plugin.graph");
 
     static final String P_DATASET_NAME  = "DatasetName";
     static final String P_DATASET       = "Dataset";
@@ -105,8 +108,8 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
     @Override
     public void initialize(final PlugInContext context) {
         
-        final String GRAPH          = I18NPlug.getI18N("Graph");
-        final String CYCLE_FINDING  = I18NPlug.getI18N("CycleFinderPlugIn.cycle-finding");
+        final String GRAPH          = i18n.get("Graph");
+        final String CYCLE_FINDING  = i18n.get("CycleFinderPlugIn.cycle-finding");
         
         context.getFeatureInstaller().addMainMenuPlugin(
           this, new String[]{MenuNames.PLUGINS, GRAPH}, CYCLE_FINDING + "...",
@@ -115,41 +118,41 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
           .add(context.getCheckFactory().createAtLeastNLayersMustExistCheck(1)));
     }
 
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public boolean execute(PlugInContext context) {
         
-        final String CYCLE_FINDING                    = I18NPlug.getI18N("CycleFinderPlugIn.cycle-finding");
-        final String LAYER                            = I18NPlug.getI18N("Layer");
-        final String USE_ATTRIBUTE                    = I18NPlug.getI18N("CycleFinderPlugIn.use-attribute");
-        final String USE_ATTRIBUTE_TOOLTIP            = I18NPlug.getI18N("CycleFinderPlugIn.use-attribute-tooltip");
-        final String ATTRIBUTE                        = I18NPlug.getI18N("Attribute");
-        final String IGNORE_EMPTY                     = I18NPlug.getI18N("ignore-empty");
-        final String IGNORE_EMPTY_TOOLTIP             = I18NPlug.getI18N("ignore-empty-tooltip");
-        final String DIM3                             = I18NPlug.getI18N("dim3");
-        final String DIM3_TOOLTIP                     = I18NPlug.getI18N("dim3-tooltip");
+        final String CYCLE_FINDING                    = i18n.get("CycleFinderPlugIn.cycle-finding");
+        final String LAYER                            = i18n.get("Layer");
+        final String USE_ATTRIBUTE                    = i18n.get("CycleFinderPlugIn.use-attribute");
+        final String USE_ATTRIBUTE_TOOLTIP            = i18n.get("CycleFinderPlugIn.use-attribute-tooltip");
+        final String ATTRIBUTE                        = i18n.get("Attribute");
+        final String IGNORE_EMPTY                     = i18n.get("ignore-empty");
+        final String IGNORE_EMPTY_TOOLTIP             = i18n.get("ignore-empty-tooltip");
+        final String DIM3                             = i18n.get("dim3");
+        final String DIM3_TOOLTIP                     = i18n.get("dim3-tooltip");
         
-        final String MIN_FEATURES                     = I18NPlug.getI18N("CycleFinderPlugIn.min-features");
-        final String MIN_FEATURES_TOOLTIP             = I18NPlug.getI18N("CycleFinderPlugIn.min-features-tooltip");
-        final String MAX_FEATURES                     = I18NPlug.getI18N("CycleFinderPlugIn.max-features");
-        final String MAX_FEATURES_TOOLTIP             = I18NPlug.getI18N("CycleFinderPlugIn.max-features-tooltip");
-        final String MAX_LENGTH                       = I18NPlug.getI18N("CycleFinderPlugIn.max-length");
-        final String MAX_LENGTH_TOOLTIP               = I18NPlug.getI18N("CycleFinderPlugIn.max-length-tooltip");
+        final String MIN_FEATURES                     = i18n.get("CycleFinderPlugIn.min-features");
+        final String MIN_FEATURES_TOOLTIP             = i18n.get("CycleFinderPlugIn.min-features-tooltip");
+        final String MAX_FEATURES                     = i18n.get("CycleFinderPlugIn.max-features");
+        final String MAX_FEATURES_TOOLTIP             = i18n.get("CycleFinderPlugIn.max-features-tooltip");
+        final String MAX_LENGTH                       = i18n.get("CycleFinderPlugIn.max-length");
+        final String MAX_LENGTH_TOOLTIP               = i18n.get("CycleFinderPlugIn.max-length-tooltip");
         
-        final String ALL_HOMOGENEOUS_CYCLES           = I18NPlug.getI18N("CycleFinderPlugIn.all-homogeneous-cycles");
-        final String ALL_HOMOGENEOUS_CYCLES_TOOLTIP   = I18NPlug.getI18N("CycleFinderPlugIn.all-homogeneous-cycles-tooltip");
-        final String ISOLATED_CYCLES                  = I18NPlug.getI18N("CycleFinderPlugIn.isolated-cycles");
-        final String ISOLATED_CYCLES_TOOLTIP          = I18NPlug.getI18N("CycleFinderPlugIn.isolated-cycles-tooltip");
-        final String PENDANT_CYCLES                   = I18NPlug.getI18N("CycleFinderPlugIn.pendant-cycles");
-        final String PENDANT_CYCLES_TOOLTIP           = I18NPlug.getI18N("CycleFinderPlugIn.pendant-cycles-tooltip");
-        final String JUNCTION_CYCLES                  = I18NPlug.getI18N("CycleFinderPlugIn.junction-cycles");
-        final String JUNCTION_CYCLES_TOOLTIP          = I18NPlug.getI18N("CycleFinderPlugIn.junction-cycles-tooltip");
-        final String FORK_CYCLES                      = I18NPlug.getI18N("CycleFinderPlugIn.fork-cycles");
-        final String FORK_CYCLES_TOOLTIP              = I18NPlug.getI18N("CycleFinderPlugIn.fork-cycles-tooltip");
+        final String ALL_HOMOGENEOUS_CYCLES           = i18n.get("CycleFinderPlugIn.all-homogeneous-cycles");
+        final String ALL_HOMOGENEOUS_CYCLES_TOOLTIP   = i18n.get("CycleFinderPlugIn.all-homogeneous-cycles-tooltip");
+        final String ISOLATED_CYCLES                  = i18n.get("CycleFinderPlugIn.isolated-cycles");
+        final String ISOLATED_CYCLES_TOOLTIP          = i18n.get("CycleFinderPlugIn.isolated-cycles-tooltip");
+        final String PENDANT_CYCLES                   = i18n.get("CycleFinderPlugIn.pendant-cycles");
+        final String PENDANT_CYCLES_TOOLTIP           = i18n.get("CycleFinderPlugIn.pendant-cycles-tooltip");
+        final String JUNCTION_CYCLES                  = i18n.get("CycleFinderPlugIn.junction-cycles");
+        final String JUNCTION_CYCLES_TOOLTIP          = i18n.get("CycleFinderPlugIn.junction-cycles-tooltip");
+        final String FORK_CYCLES                      = i18n.get("CycleFinderPlugIn.fork-cycles");
+        final String FORK_CYCLES_TOOLTIP              = i18n.get("CycleFinderPlugIn.fork-cycles-tooltip");
         
-        final String ALL_HETEROGENEOUS_CYCLES         = I18NPlug.getI18N("CycleFinderPlugIn.all-heterogeneous-cycles");
-        final String ALL_HETEROGENEOUS_CYCLES_TOOLTIP = I18NPlug.getI18N("CycleFinderPlugIn.all-heterogeneous-cycles-tooltip");
-        final String AAB_ABB_CYCLES_ONLY              = I18NPlug.getI18N("CycleFinderPlugIn.aab-abb-cycles-only");
-        final String AAB_ABB_CYCLES_ONLY_TOOLTIP      = I18NPlug.getI18N("CycleFinderPlugIn.aab-abb-cycles-only-tooltip");
+        final String ALL_HETEROGENEOUS_CYCLES         = i18n.get("CycleFinderPlugIn.all-heterogeneous-cycles");
+        final String ALL_HETEROGENEOUS_CYCLES_TOOLTIP = i18n.get("CycleFinderPlugIn.all-heterogeneous-cycles-tooltip");
+        final String AAB_ABB_CYCLES_ONLY              = i18n.get("CycleFinderPlugIn.aab-abb-cycles-only");
+        final String AAB_ABB_CYCLES_ONLY_TOOLTIP      = i18n.get("CycleFinderPlugIn.aab-abb-cycles-only-tooltip");
 
         // Variable used for the UI
         boolean all_homogeneous_cycles = getIntegerParam(P_DEGREE_FILTER) <= 0;
@@ -195,7 +198,7 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
         
         final JCheckBox jcb_use_attribute = dialog.addCheckBox(USE_ATTRIBUTE, use_attribute, USE_ATTRIBUTE_TOOLTIP);
         List<String> list = getFieldsFromLayerWithoutGeometry(context.getCandidateLayer(0));
-        Object val = list.size()>0?list.iterator().next():null;
+        String val = list.size()>0?list.iterator().next():null;
         final JComboBox<String> jcb_attribute = dialog.addComboBox(ATTRIBUTE, val, list, USE_ATTRIBUTE_TOOLTIP);
         jcb_attribute.setEnabled(use_attribute);
         final JCheckBox jcb_ignore_empty = dialog.addCheckBox(IGNORE_EMPTY, ignore_empty, IGNORE_EMPTY_TOOLTIP);
@@ -255,7 +258,7 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
             String attribute = use_attribute? dialog.getText(ATTRIBUTE) : null;
             ignore_empty    = dialog.getBoolean(IGNORE_EMPTY);
 
-            all_homogeneous_cycles = dialog.getBoolean(ALL_HOMOGENEOUS_CYCLES);
+            //all_homogeneous_cycles = dialog.getBoolean(ALL_HOMOGENEOUS_CYCLES);
             isolated_cycles = dialog.getBoolean(ISOLATED_CYCLES);
             pendant_cycles  = dialog.getBoolean(PENDANT_CYCLES);
             junction_cycles = dialog.getBoolean(JUNCTION_CYCLES);
@@ -531,9 +534,9 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
         }
 
         */
-        String HOMOGENEOUS_CYCLES    = I18NPlug.getI18N("CycleFinderPlugIn.homogeneous-cycles");
-        String HETEROGENEOUS_CYCLES  = I18NPlug.getI18N("CycleFinderPlugIn.heterogeneous-cycles");
-        String NO_CYCLE_FOUND        = I18NPlug.getI18N("CycleFinderPlugIn.no-cycle-found");
+        String HOMOGENEOUS_CYCLES    = i18n.get("CycleFinderPlugIn.homogeneous-cycles");
+        String HETEROGENEOUS_CYCLES  = i18n.get("CycleFinderPlugIn.heterogeneous-cycles");
+        String NO_CYCLE_FOUND        = i18n.get("CycleFinderPlugIn.no-cycle-found");
         //Layer layer = context.getLayerManager().getLayer(getStringParam(P_DATASET_NAME));
         context.getLayerManager().addCategory(StandardCategoryNames.RESULT);
         if (map.get(HOMOGENEOUS_CYCLES).size()>0) {
@@ -555,33 +558,33 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
 
         Map<String,FeatureCollection> map = new LinkedHashMap<>();
 
-        String INDEXATION_OF         = I18NPlug.getI18N("CycleFinderPlugIn.indexation-of");
-        String POLYGONIZATION_OF     = I18NPlug.getI18N("CycleFinderPlugIn.polygonization-of");
-        String ANALYSIS_OF           = I18NPlug.getI18N("CycleFinderPlugIn.analysis-of");
-        String PROCESSED_CYCLES      = I18NPlug.getI18N("CycleFinderPlugIn.processed-cycles");
-        String NB_OF_EDGES           = I18NPlug.getI18N("CycleFinderPlugIn.number-of-edges");
-        String LENGTH                = I18NPlug.getI18N("CycleFinderPlugIn.length");
-        String AREA                  = I18NPlug.getI18N("CycleFinderPlugIn.area");
-        String CONVEXITY             = I18NPlug.getI18N("CycleFinderPlugIn.convexity");
-        String CONVEX                = I18NPlug.getI18N("CycleFinderPlugIn.convex");
-        String CONCAVE               = I18NPlug.getI18N("CycleFinderPlugIn.concave");
-        String CIRCULARITY           = I18NPlug.getI18N("CycleFinderPlugIn.circularity");
-        String CYCLE_HOMOGENEITY     = I18NPlug.getI18N("CycleFinderPlugIn.cycle-homogeneity");
-        String HOMOGENEOUS           = I18NPlug.getI18N("CycleFinderPlugIn.homogeneous");
-        String ISOLATED              = I18NPlug.getI18N("CycleFinderPlugIn.isolated");
-        String PENDANT               = I18NPlug.getI18N("CycleFinderPlugIn.pendant");
-        String JUNCTION              = I18NPlug.getI18N("CycleFinderPlugIn.junction");
-        String FORK                  = I18NPlug.getI18N("CycleFinderPlugIn.fork");
-        String HETEROGENEOUS         = I18NPlug.getI18N("CycleFinderPlugIn.heterogeneous");
-        String AABABB                = I18NPlug.getI18N("CycleFinderPlugIn.aababb");
-        String COMMENT               = I18NPlug.getI18N("CycleFinderPlugIn.comment");
+        String INDEXATION_OF         = i18n.get("CycleFinderPlugIn.indexation-of");
+        String POLYGONIZATION_OF     = i18n.get("CycleFinderPlugIn.polygonization-of");
+        String ANALYSIS_OF           = i18n.get("CycleFinderPlugIn.analysis-of");
+        String PROCESSED_CYCLES      = i18n.get("CycleFinderPlugIn.processed-cycles");
+        String NB_OF_EDGES           = i18n.get("CycleFinderPlugIn.number-of-edges");
+        String LENGTH                = i18n.get("CycleFinderPlugIn.length");
+        String AREA                  = i18n.get("CycleFinderPlugIn.area");
+        String CONVEXITY             = i18n.get("CycleFinderPlugIn.convexity");
+        String CONVEX                = i18n.get("CycleFinderPlugIn.convex");
+        String CONCAVE               = i18n.get("CycleFinderPlugIn.concave");
+        String CIRCULARITY           = i18n.get("CycleFinderPlugIn.circularity");
+        String CYCLE_HOMOGENEITY     = i18n.get("CycleFinderPlugIn.cycle-homogeneity");
+        String HOMOGENEOUS           = i18n.get("CycleFinderPlugIn.homogeneous");
+        String ISOLATED              = i18n.get("CycleFinderPlugIn.isolated");
+        String PENDANT               = i18n.get("CycleFinderPlugIn.pendant");
+        String JUNCTION              = i18n.get("CycleFinderPlugIn.junction");
+        String FORK                  = i18n.get("CycleFinderPlugIn.fork");
+        String HETEROGENEOUS         = i18n.get("CycleFinderPlugIn.heterogeneous");
+        String AABABB                = i18n.get("CycleFinderPlugIn.aababb");
+        String COMMENT               = i18n.get("CycleFinderPlugIn.comment");
 
         //String NO_CYCLE_FOUND        = I18NPlug.getI18N("CycleFinderPlugIn.no-cycle-found");
-        String HOMOGENEOUS_CYCLES    = I18NPlug.getI18N("CycleFinderPlugIn.homogeneous-cycles");
-        String HETEROGENEOUS_CYCLES  = I18NPlug.getI18N("CycleFinderPlugIn.heterogeneous-cycles");
+        String HOMOGENEOUS_CYCLES    = i18n.get("CycleFinderPlugIn.homogeneous-cycles");
+        String HETEROGENEOUS_CYCLES  = i18n.get("CycleFinderPlugIn.heterogeneous-cycles");
 
         //Layer layer = context.getLayerManager().getLayer(getStringParam(P_LAYER));
-        FeatureCollection fc = (FeatureCollection)getParameters().get(P_DATASET);
+        //FeatureCollection fc = (FeatureCollection)getParameters().get(P_DATASET);
         boolean dim3 = getBooleanParam(P_GRAPH_3D);
         int min_features = getIntegerParam(P_MIN_FEATURES);
         int max_features = getIntegerParam(P_MAX_FEATURE);
@@ -622,10 +625,10 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
         FeatureCollection filteredFC = (FeatureCollection)getParameters().get(P_DATASET);
         if (use_attribute && ignore_empty) {
             filteredFC = new FeatureDataset(filteredFC.getFeatureSchema());
-            for (Object f : ((FeatureCollection)getParameters().get(P_DATASET)).getFeatures()) {
-                if (((Feature)f).getAttribute(attribute)!=null &&
-                    ((Feature)f).getAttribute(attribute).toString().trim().length()>0) {
-                    filteredFC.add(((Feature)f));
+            for (Feature f : ((FeatureCollection)getParameters().get(P_DATASET)).getFeatures()) {
+                if (f.getAttribute(attribute)!=null &&
+                    f.getAttribute(attribute).toString().trim().length()>0) {
+                    filteredFC.add(f);
                 }
             }
         }
@@ -639,8 +642,8 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
         Collection<Geometry> geoms = new ArrayList<>();
         // [2013-01-15] Eliminate line duplicates
         Collection<Geometry> lines = new HashSet<>();
-        for (Object f : filteredFC.getFeatures()) {
-            Geometry geom = ((Feature)f).getGeometry();
+        for (Feature f : filteredFC.getFeatures()) {
+            Geometry geom = f.getGeometry();
             if (geom.getLength()<=max_length) {
                 if (geom.getDimension() == 1) lines.add(geom.norm());
                 else geoms.add(geom);
@@ -741,7 +744,7 @@ public class CycleFinderPlugIn extends ThreadedBasePlugIn {
                 Object atth = attributeSet.iterator().next();
                 int count_homogeneous_edges = 0;
                 for (FeatureAsEdge e : edgeSet) {
-                    Object atte = use_attribute?e.getAttribute(attribute):NOATT;
+                    Object atte = use_attribute? e.getAttribute(attribute): NOATT;
                     if (atte.equals(atth)) count_homogeneous_edges++;
                 }
                 int incident_edges = count_homogeneous_edges - cycleEdgeSet.size();

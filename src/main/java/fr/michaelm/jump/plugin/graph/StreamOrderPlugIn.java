@@ -27,6 +27,8 @@ import java.util.*;
  */
 public class StreamOrderPlugIn extends ThreadedBasePlugIn {
 
+    private final I18N i18n = I18N.getInstance("fr.michaelm.jump.plugin.graph");
+
     private static String LAYER;
 
     private static String STREAM_ORDER;
@@ -73,19 +75,19 @@ public class StreamOrderPlugIn extends ThreadedBasePlugIn {
     @Override
     public void initialize(final PlugInContext context) {
 
-        String GRAPH            = I18NPlug.getI18N("Graph");
+        String GRAPH            = i18n.get("Graph");
 
-        LAYER                   = I18N.get("ui.GenericNames.LAYER");
-        GRAPH_COMPUTATION       = I18NPlug.getI18N("Graph-computation");
-        STREAM_ORDER            = I18NPlug.getI18N("StreamOrderPlugIn.stream-order");
-        STRAHLER_TT             = I18NPlug.getI18N("StreamOrderPlugIn.strahler-tt");
-        OTHER_ORDERS            = I18NPlug.getI18N("StreamOrderPlugIn.other-orders");
-        SHREVE_TT               = I18NPlug.getI18N("StreamOrderPlugIn.shreve-tt");
-        OLD_ALGO                = I18NPlug.getI18N("StreamOrderPlugIn.old-algorithm");
-        METRICS                 = I18NPlug.getI18N("StreamOrderPlugIn.metrics");
-        LENGTH_ATTRIBUTE        = I18NPlug.getI18N("StreamOrderPlugIn.length-attribute");
-        HORTON_TT               = I18NPlug.getI18N("StreamOrderPlugIn.horton-tt");
-        HACK_TT                 = I18NPlug.getI18N("StreamOrderPlugIn.hack-tt");
+        LAYER                   = I18N.getInstance().get("ui.GenericNames.LAYER");
+        GRAPH_COMPUTATION       = i18n.get("Graph-computation");
+        STREAM_ORDER            = i18n.get("StreamOrderPlugIn.stream-order");
+        STRAHLER_TT             = i18n.get("StreamOrderPlugIn.strahler-tt");
+        OTHER_ORDERS            = i18n.get("StreamOrderPlugIn.other-orders");
+        SHREVE_TT               = i18n.get("StreamOrderPlugIn.shreve-tt");
+        OLD_ALGO                = i18n.get("StreamOrderPlugIn.old-algorithm");
+        METRICS                 = i18n.get("StreamOrderPlugIn.metrics");
+        LENGTH_ATTRIBUTE        = i18n.get("StreamOrderPlugIn.length-attribute");
+        HORTON_TT               = i18n.get("StreamOrderPlugIn.horton-tt");
+        HACK_TT                 = i18n.get("StreamOrderPlugIn.hack-tt");
 
         context.getFeatureInstaller().addMainMenuPlugin(
                 this, new String[]{MenuNames.PLUGINS, GRAPH},
@@ -143,8 +145,7 @@ public class StreamOrderPlugIn extends ThreadedBasePlugIn {
         }
         if (horton) newSchema.addAttribute(HORTON, AttributeType.INTEGER);
         FeatureCollection resultFC = new FeatureDataset(newSchema);
-        for (Object o : sourceFC.getFeatures()) {
-            Feature f = (Feature)o;
+        for (Feature f : sourceFC.getFeatures()) {
             Feature bf = new BasicFeature(newSchema);
             for (int i = 0 ; i < f.getSchema().getAttributeCount() ; i++) {
                 bf.setAttribute(i, f.getAttribute(i));
@@ -637,7 +638,7 @@ public class StreamOrderPlugIn extends ThreadedBasePlugIn {
         final MultiInputDialog dialog = new MultiInputDialog(
                 context.getWorkbenchFrame(), STREAM_ORDER, true);
         dialog.setSideBarImage(new ImageIcon(this.getClass().getResource("StrahlerNumber.png")));
-        dialog.setSideBarDescription(I18NPlug.getI18N("StreamOrderPlugIn.description"));
+        dialog.setSideBarDescription(i18n.get("StreamOrderPlugIn.description"));
         dialog.addLayerComboBox(LAYER, context.getCandidateLayer(0), null, context.getLayerManager());
         dialog.addSubTitle(STRAHLER);
         dialog.addCheckBox(OLD_ALGO, old_algo);

@@ -32,6 +32,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.*;
 import com.vividsolutions.jump.task.TaskMonitor;
 import com.vividsolutions.jump.workbench.model.Layer;
@@ -57,6 +58,8 @@ import org.jgrapht.graph.DirectedWeightedPseudograph;
 //version 0.1.1 (2010-04-22) first svn version
 //version 0.1 (2010-04-22)
 public class GraphNodesPlugIn extends ThreadedBasePlugIn {
+
+    private final I18N i18n = I18N.getInstance("fr.michaelm.jump.plugin.graph");
 
     private static final String P_LAYER       = "Layer";
 
@@ -137,33 +140,33 @@ public class GraphNodesPlugIn extends ThreadedBasePlugIn {
     @Override
     public void initialize(final PlugInContext context) {
 
-        LAYER                 = I18NPlug.getI18N("Layer");
-        GRAPH                 = I18NPlug.getI18N("Graph");
-        NODES                 = I18NPlug.getI18N("Nodes");
-        DEGREE                = I18NPlug.getI18N("Degree");
-        IN_DEGREE             = I18NPlug.getI18N("InDegree");
-        OUT_DEGREE            = I18NPlug.getI18N("OutDegree");
-        GRAPH_COMPUTATION     = I18NPlug.getI18N("Graph-computation");
-        GRAPH_NODES           = I18NPlug.getI18N("GraphNodesPlugIn.graph-nodes");
-        USE_ATTRIBUTE         = I18NPlug.getI18N("use-attribute");
-        USE_ATTRIBUTE_TOOLTIP = I18NPlug.getI18N("use-attribute-tooltip");
-        ATTRIBUTE             = I18NPlug.getI18N("Attribute");
-        IGNORE_EMPTY          = I18NPlug.getI18N("ignore-empty");
-        IGNORE_EMPTY_TOOLTIP  = I18NPlug.getI18N("ignore-empty-tooltip");
-        DIM3                  = I18NPlug.getI18N("dim3");
-        DIM3_TOOLTIP          = I18NPlug.getI18N("dim3-tooltip");
-        DEGREE0               = I18NPlug.getI18N("GraphNodesPlugIn.degree0");
-        DEGREE0_TOOLTIP       = I18NPlug.getI18N("GraphNodesPlugIn.degree0-tooltip");
-        DEGREE1               = I18NPlug.getI18N("GraphNodesPlugIn.degree1");
-        DEGREE1_TOOLTIP       = I18NPlug.getI18N("GraphNodesPlugIn.degree1-tooltip");
-        DEGREE2               = I18NPlug.getI18N("GraphNodesPlugIn.degree2");
-        DEGREE2_TOOLTIP       = I18NPlug.getI18N("GraphNodesPlugIn.degree2-tooltip");
-        DEGREE3P              = I18NPlug.getI18N("GraphNodesPlugIn.degree3p");
-        DEGREE3P_TOOLTIP      = I18NPlug.getI18N("GraphNodesPlugIn.degree3p-tooltip");
-        DIRECTED_AND          = I18NPlug.getI18N("GraphNodesPlugIn.directed-and");
-        IN_DEGREE0            = I18NPlug.getI18N("GraphNodesPlugIn.in-degree0");
-        OUT_DEGREE0           = I18NPlug.getI18N("GraphNodesPlugIn.out-degree0");
-        NO_NODE_FOUND         = I18NPlug.getI18N("GraphNodesPlugIn.no-node-found");
+        LAYER                 = i18n.get("Layer");
+        GRAPH                 = i18n.get("Graph");
+        NODES                 = i18n.get("Nodes");
+        DEGREE                = i18n.get("Degree");
+        IN_DEGREE             = i18n.get("InDegree");
+        OUT_DEGREE            = i18n.get("OutDegree");
+        GRAPH_COMPUTATION     = i18n.get("Graph-computation");
+        GRAPH_NODES           = i18n.get("GraphNodesPlugIn.graph-nodes");
+        USE_ATTRIBUTE         = i18n.get("use-attribute");
+        USE_ATTRIBUTE_TOOLTIP = i18n.get("use-attribute-tooltip");
+        ATTRIBUTE             = i18n.get("Attribute");
+        IGNORE_EMPTY          = i18n.get("ignore-empty");
+        IGNORE_EMPTY_TOOLTIP  = i18n.get("ignore-empty-tooltip");
+        DIM3                  = i18n.get("dim3");
+        DIM3_TOOLTIP          = i18n.get("dim3-tooltip");
+        DEGREE0               = i18n.get("GraphNodesPlugIn.degree0");
+        DEGREE0_TOOLTIP       = i18n.get("GraphNodesPlugIn.degree0-tooltip");
+        DEGREE1               = i18n.get("GraphNodesPlugIn.degree1");
+        DEGREE1_TOOLTIP       = i18n.get("GraphNodesPlugIn.degree1-tooltip");
+        DEGREE2               = i18n.get("GraphNodesPlugIn.degree2");
+        DEGREE2_TOOLTIP       = i18n.get("GraphNodesPlugIn.degree2-tooltip");
+        DEGREE3P              = i18n.get("GraphNodesPlugIn.degree3p");
+        DEGREE3P_TOOLTIP      = i18n.get("GraphNodesPlugIn.degree3p-tooltip");
+        DIRECTED_AND          = i18n.get("GraphNodesPlugIn.directed-and");
+        IN_DEGREE0            = i18n.get("GraphNodesPlugIn.in-degree0");
+        OUT_DEGREE0           = i18n.get("GraphNodesPlugIn.out-degree0");
+        NO_NODE_FOUND         = i18n.get("GraphNodesPlugIn.no-node-found");
         
         context.getFeatureInstaller().addMainMenuPlugin(
           this, new String[]{MenuNames.PLUGINS, GRAPH},
@@ -174,7 +177,7 @@ public class GraphNodesPlugIn extends ThreadedBasePlugIn {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public boolean execute(PlugInContext context) {
         
         final MultiInputDialog dialog = new MultiInputDialog(
@@ -186,7 +189,7 @@ public class GraphNodesPlugIn extends ThreadedBasePlugIn {
         final JCheckBox jcb_use_attribute = dialog.addCheckBox(USE_ATTRIBUTE, false, USE_ATTRIBUTE_TOOLTIP);
         
         List<String> list = getFieldsFromLayerWithoutGeometry(context.getCandidateLayer(0));
-        Object val = list.size()>0?list.iterator().next():null;
+        String val = list.size()>0?list.iterator().next():null;
         final JComboBox<String> jcb_attribute = dialog.addComboBox(ATTRIBUTE, val, list, USE_ATTRIBUTE_TOOLTIP);
         jcb_attribute.setEnabled(false);
         

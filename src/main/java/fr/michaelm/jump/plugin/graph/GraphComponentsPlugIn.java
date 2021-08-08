@@ -23,6 +23,7 @@
 
 package fr.michaelm.jump.plugin.graph;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.*;
 import com.vividsolutions.jump.task.TaskMonitor;
 import com.vividsolutions.jump.workbench.model.Layer;
@@ -60,6 +61,8 @@ import javax.swing.JComboBox;
 //version 0.1.1 (2010-04-22) first svn version
 //version 0.1 (2010-04-22)
 public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
+
+    private final I18N i18n = I18N.getInstance("fr.michaelm.jump.plugin.graph");
 
     private static final String P_LAYER                 = "Layer";
     private static final String P_ATTRIBUTE             = "Attribute";
@@ -121,31 +124,31 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
     @Override
     public void initialize(final PlugInContext context) {
         
-        GRAPH                      = I18NPlug.getI18N("Graph");
-        CONNECTED_COMPONENTS       = I18NPlug.getI18N("GraphComponentsPlugIn.connected-components");
-        LAYER                      = I18NPlug.getI18N("Layer");
-        USE_ATTRIBUTE              = I18NPlug.getI18N("use-attribute");
-        USE_ATTRIBUTE_TOOLTIP      = I18NPlug.getI18N("use-attribute-tooltip");
-        ATTRIBUTE                  = I18NPlug.getI18N("Attribute");
-        IGNORE_EMPTY               = I18NPlug.getI18N("ignore-empty");
-        IGNORE_EMPTY_TOOLTIP       = I18NPlug.getI18N("ignore-empty-tooltip");
-        DIM3                       = I18NPlug.getI18N("dim3");
-        DIM3_TOOLTIP               = I18NPlug.getI18N("dim3-tooltip");
-        RETURN_GRAPHS_AS           = I18NPlug.getI18N("GraphComponentsPlugIn.return-graphs-as");
-        RETURN_GRAPHS_AS_TOOLTIP   = I18NPlug.getI18N("GraphComponentsPlugIn.return-graphs-as-tooltip");
-        POINT                      = I18NPlug.getI18N("GraphComponentsPlugIn.point");
-        MULTILINESTRING            = I18NPlug.getI18N("GraphComponentsPlugIn.multilinestring");
-        SIMPLIFIED_MULTILINESTRING = I18NPlug.getI18N("GraphComponentsPlugIn.simplified-multilinestring");
-        GRAPH_ANALYSIS             = I18NPlug.getI18N("GraphComponentsPlugIn.graph-analysis");
-        CONNECTED_SUBGRAPH         = I18NPlug.getI18N("GraphComponentsPlugIn.connected-subgraph");
-        CONNECTED_SUBGRAPHS        = I18NPlug.getI18N("GraphComponentsPlugIn.connected-subgraphs");
-        FEATURES                   = I18NPlug.getI18N("Features");
-        PENDANT_VERTICES           = I18NPlug.getI18N("GraphComponentsPlugIn.pendant-vertices");
-        LENGTH                     = I18NPlug.getI18N("GraphComponentsPlugIn.longueur");
-        PROCESSED_GRAPHS           = I18NPlug.getI18N("GraphComponentsPlugIn.processed-graphs");
-        GRAPHS                     = I18NPlug.getI18N("GraphComponentsPlugIn.graphs");
-        SUBGRAPHS                  = I18NPlug.getI18N("GraphComponentsPlugIn.subgraphs");
-        NO_GRAPH                   = I18NPlug.getI18N("GraphComponentsPlugIn.no-graph");
+        GRAPH                      = i18n.get("Graph");
+        CONNECTED_COMPONENTS       = i18n.get("GraphComponentsPlugIn.connected-components");
+        LAYER                      = i18n.get("Layer");
+        USE_ATTRIBUTE              = i18n.get("use-attribute");
+        USE_ATTRIBUTE_TOOLTIP      = i18n.get("use-attribute-tooltip");
+        ATTRIBUTE                  = i18n.get("Attribute");
+        IGNORE_EMPTY               = i18n.get("ignore-empty");
+        IGNORE_EMPTY_TOOLTIP       = i18n.get("ignore-empty-tooltip");
+        DIM3                       = i18n.get("dim3");
+        DIM3_TOOLTIP               = i18n.get("dim3-tooltip");
+        RETURN_GRAPHS_AS           = i18n.get("GraphComponentsPlugIn.return-graphs-as");
+        RETURN_GRAPHS_AS_TOOLTIP   = i18n.get("GraphComponentsPlugIn.return-graphs-as-tooltip");
+        POINT                      = i18n.get("GraphComponentsPlugIn.point");
+        MULTILINESTRING            = i18n.get("GraphComponentsPlugIn.multilinestring");
+        SIMPLIFIED_MULTILINESTRING = i18n.get("GraphComponentsPlugIn.simplified-multilinestring");
+        GRAPH_ANALYSIS             = i18n.get("GraphComponentsPlugIn.graph-analysis");
+        CONNECTED_SUBGRAPH         = i18n.get("GraphComponentsPlugIn.connected-subgraph");
+        CONNECTED_SUBGRAPHS        = i18n.get("GraphComponentsPlugIn.connected-subgraphs");
+        FEATURES                   = i18n.get("Features");
+        PENDANT_VERTICES           = i18n.get("GraphComponentsPlugIn.pendant-vertices");
+        LENGTH                     = i18n.get("GraphComponentsPlugIn.longueur");
+        PROCESSED_GRAPHS           = i18n.get("GraphComponentsPlugIn.processed-graphs");
+        GRAPHS                     = i18n.get("GraphComponentsPlugIn.graphs");
+        SUBGRAPHS                  = i18n.get("GraphComponentsPlugIn.subgraphs");
+        NO_GRAPH                   = i18n.get("GraphComponentsPlugIn.no-graph");
         
         context.getFeatureInstaller().addMainMenuPlugin(
           this, new String[]{MenuNames.PLUGINS, GRAPH}, CONNECTED_COMPONENTS + "...",
@@ -155,7 +158,7 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
+    //@SuppressWarnings("unchecked")
     public boolean execute(PlugInContext context) {
         
         final MultiInputDialog dialog = new MultiInputDialog(
@@ -171,7 +174,7 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
         final JCheckBox jcb_use_attribute = dialog.addCheckBox(USE_ATTRIBUTE, use_attribute, USE_ATTRIBUTE_TOOLTIP);
         
         List<String> list = getFieldsFromLayerWithoutGeometry(context.getCandidateLayer(0));
-        Object val = list.size()>0?list.iterator().next():null;
+        String val = list.size()>0?list.iterator().next():null;
         final JComboBox<String> jcb_attribute = dialog.addComboBox(ATTRIBUTE, val, list, USE_ATTRIBUTE_TOOLTIP);
         jcb_attribute.setEnabled(false);
         

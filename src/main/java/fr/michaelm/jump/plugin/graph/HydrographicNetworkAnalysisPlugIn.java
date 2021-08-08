@@ -1,5 +1,6 @@
 package fr.michaelm.jump.plugin.graph;
 
+import com.vividsolutions.jump.I18N;
 import com.vividsolutions.jump.feature.*;
 import com.vividsolutions.jump.task.TaskMonitor;
 import com.vividsolutions.jump.workbench.model.Layer;
@@ -36,6 +37,8 @@ import java.util.List;
  * PlugIn to detect or repair anomalies in a hydrographic network
  */
 public class HydrographicNetworkAnalysisPlugIn extends ThreadedBasePlugIn {
+
+    private final I18N i18n = I18N.getInstance("fr.michaelm.jump.plugin.graph");
 
     private static String LAYER;
     private static String GRAPH;
@@ -79,33 +82,33 @@ public class HydrographicNetworkAnalysisPlugIn extends ThreadedBasePlugIn {
     @Override
     public void initialize(final PlugInContext context) {
 
-        LAYER                         = I18NPlug.getI18N("Layer");
-        GRAPH                         = I18NPlug.getI18N("Graph");
-        HYDROGRAPHIC_NETWORK_ANALYSIS = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn");
-        GRAPH_COMPUTATION             = I18NPlug.getI18N("Graph-computation");
+        LAYER                         = i18n.get("Layer");
+        GRAPH                         = i18n.get("Graph");
+        HYDROGRAPHIC_NETWORK_ANALYSIS = i18n.get("HydrographicNetworkAnalysisPlugIn");
+        GRAPH_COMPUTATION             = i18n.get("Graph-computation");
 
-        DETECT           = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Detect");
-        REPAIR           = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Repair");
+        DETECT           = i18n.get("HydrographicNetworkAnalysisPlugIn.Detect");
+        REPAIR           = i18n.get("HydrographicNetworkAnalysisPlugIn.Repair");
 
-        FIND_CYCLES      = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Cycles");
-        FIND_CYCLES_TT   = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Cycles-tooltip");
-        FIND_SOURCES     = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Sources-with-several-outcoming-edges");
-        FIND_SOURCES_TT  = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Sources-with-several-outcoming-edges");
-        FIND_SINKS       = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Sinks-with-several-incoming-edges");
-        FIND_SINKS_TT    = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Sinks-with-several-incoming-edges");
-        USE_Z            = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Use-z");
-        USE_Z_TT         = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Use-z-to-find-inverted-edges");
-        TOL_Z            = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Tolerance-for-Z");
-        TOL_Z_TT         = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Altitude-differences-less-than-the-tolerance-are-ignored");
+        FIND_CYCLES      = i18n.get("HydrographicNetworkAnalysisPlugIn.Cycles");
+        FIND_CYCLES_TT   = i18n.get("HydrographicNetworkAnalysisPlugIn.Cycles-tooltip");
+        FIND_SOURCES     = i18n.get("HydrographicNetworkAnalysisPlugIn.Sources-with-several-outcoming-edges");
+        FIND_SOURCES_TT  = i18n.get("HydrographicNetworkAnalysisPlugIn.Sources-with-several-outcoming-edges");
+        FIND_SINKS       = i18n.get("HydrographicNetworkAnalysisPlugIn.Sinks-with-several-incoming-edges");
+        FIND_SINKS_TT    = i18n.get("HydrographicNetworkAnalysisPlugIn.Sinks-with-several-incoming-edges");
+        USE_Z            = i18n.get("HydrographicNetworkAnalysisPlugIn.Use-z");
+        USE_Z_TT         = i18n.get("HydrographicNetworkAnalysisPlugIn.Use-z-to-find-inverted-edges");
+        TOL_Z            = i18n.get("HydrographicNetworkAnalysisPlugIn.Tolerance-for-Z");
+        TOL_Z_TT         = i18n.get("HydrographicNetworkAnalysisPlugIn.Altitude-differences-less-than-the-tolerance-are-ignored");
 
-        SOURCE           = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Source");
-        SINK             = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Sink");
-        CYCLE            = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Cycle");
-        UPWARD_EDGE      = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Upward-edge");
-        Z_ANOMALY        = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.z-anomaly");
-        CYCLE_ANOMALY    = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.cycle-anomaly");
-        NODE_ANOMALY     = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.node-anomaly");
-        REVERSED_EDGES   = I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.reversed-edge");
+        SOURCE           = i18n.get("HydrographicNetworkAnalysisPlugIn.Source");
+        SINK             = i18n.get("HydrographicNetworkAnalysisPlugIn.Sink");
+        CYCLE            = i18n.get("HydrographicNetworkAnalysisPlugIn.Cycle");
+        UPWARD_EDGE      = i18n.get("HydrographicNetworkAnalysisPlugIn.Upward-edge");
+        Z_ANOMALY        = i18n.get("HydrographicNetworkAnalysisPlugIn.z-anomaly");
+        CYCLE_ANOMALY    = i18n.get("HydrographicNetworkAnalysisPlugIn.cycle-anomaly");
+        NODE_ANOMALY     = i18n.get("HydrographicNetworkAnalysisPlugIn.node-anomaly");
+        REVERSED_EDGES   = i18n.get("HydrographicNetworkAnalysisPlugIn.reversed-edge");
 
         context.getFeatureInstaller().addMainMenuPlugin(
                 this, new String[]{MenuNames.PLUGINS, GRAPH},
@@ -119,7 +122,7 @@ public class HydrographicNetworkAnalysisPlugIn extends ThreadedBasePlugIn {
 
         final MultiInputDialog dialog = new MultiInputDialog(
                 context.getWorkbenchFrame(), HYDROGRAPHIC_NETWORK_ANALYSIS, true);
-        dialog.setSideBarDescription(I18NPlug.getI18N("HydrographicNetworkAnalysisPlugIn.Description"));
+        dialog.setSideBarDescription(i18n.get("HydrographicNetworkAnalysisPlugIn.Description"));
 
         dialog.addLayerComboBox(LAYER,
                 context.getCandidateLayer(0), null, context.getLayerManager());
