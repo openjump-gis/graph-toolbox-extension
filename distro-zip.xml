@@ -17,7 +17,7 @@
     </dependencySet>
   </dependencySets>
    <!-- place deps in a extension lib/ subfolder 
-        using fileset to easily include downloadeded jmat
+        using fileset to easily include downloaded jmat
         system scope deps are ignored by dependencySet -->
   <fileSets>
     <fileSet>

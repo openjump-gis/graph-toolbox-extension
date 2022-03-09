@@ -1,5 +1,5 @@
 /*
- * (C) 2011 Micha&euml;l Michaud
+ * (C) 2022 Micha&euml;l Michaud
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -92,8 +92,6 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
     String IGNORE_EMPTY_TOOLTIP;
     String DIM3;
     String DIM3_TOOLTIP;
-    //String FUZZY;
-    //String FUZZY_TOOLTIP;
     String RETURN_GRAPHS_AS;
     String RETURN_GRAPHS_AS_TOOLTIP;
     String POINT, MULTILINESTRING, SIMPLIFIED_MULTILINESTRING;
@@ -109,15 +107,6 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
     String NO_GRAPH;
 
     private static final GeometryFactory DEFAULT_GEOMETRY_FACTORY = new GeometryFactory();
-    //Layer layer;
-    //String attribute;
-    //AttributeType attType;
-    //boolean use_attribute = false;
-    //boolean ignore_empty = true;
-    //boolean dim3 = false;
-    ////double fuzzy = 0.0;
-    //String return_graphs_as = "Point";
-    
 
     public String getName() {return "Graph components PlugIn";}
 

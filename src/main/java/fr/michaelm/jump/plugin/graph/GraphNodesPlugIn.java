@@ -1,5 +1,5 @@
 /*
- * (C) 2011 Micha&euml;l Michaud
+ * (C) 2022 Micha&euml;l Michaud
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

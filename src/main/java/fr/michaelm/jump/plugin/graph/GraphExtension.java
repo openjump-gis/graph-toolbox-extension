@@ -1,5 +1,5 @@
 /*
- * (C) 2011 Micha&euml;l Michaud
+ * (C) 2022 Micha&euml;l Michaud
  * 
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -36,8 +36,10 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
  * <li>CycleFinderPlugIn : computes a graph from a linear network and find base cycles</li>
  * </ul>
  * @author Micha&euml;l Michaud
- * @version 1.1.0 (2021-08-08)
+ * @version 2.0.1 (2022-03-09)
  */
+//version 2.0.1 (2022-03-09) Resources encoding
+//version 2.0.0 (2022-03-01) Complete refactoring for OpenJUMP 2.0
 //version 1.1.0 (2021-08-08) Refactoring to use new I18N and FeatureInstaller
 //version 1.0.0 (2021-04-10) Refactoring for OpenJUMP 2 / JTS 1.18.1+
 //                           Rename StrahlerNumberPlugIn to StreamOrderPlugIn
@@ -73,7 +75,7 @@ public class GraphExtension extends Extension {
         return "1.0.0 (2021-04-10)";
     }
 
-    public void configure(PlugInContext context) throws Exception {
+    public void configure(PlugInContext context) {
         
         boolean missing_libraries = false;
         try {

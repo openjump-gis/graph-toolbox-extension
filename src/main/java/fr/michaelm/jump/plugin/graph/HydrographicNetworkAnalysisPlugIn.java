@@ -200,7 +200,7 @@ public class HydrographicNetworkAnalysisPlugIn extends ThreadedBasePlugIn {
             FeatureCollection reversedFeatures =
                     new FeatureDataset(layer.getFeatureCollectionWrapper().getFeatureSchema());
 
-            EditTransaction transaction = new EditTransaction(new LinkedHashSet<Feature>(),
+            EditTransaction transaction = new EditTransaction(new LinkedHashSet<>(),
                     HYDROGRAPHIC_NETWORK_ANALYSIS, layer, true, true, context.getLayerViewPanel().getContext());
             for (Feature feature : fc.getFeatures()) {
                 if (set.contains(feature.getID())) {
