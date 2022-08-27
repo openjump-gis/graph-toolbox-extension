@@ -508,7 +508,7 @@ public class SkeletonPlugIn extends AbstractThreadedUiPlugIn {
                 cl.remove(cl.size()-1);
             }
         } else if (snap) {
-            cl.add(extendTo(c_1, c_0, boundary, ppd.getDistance()/3));
+            cl.add(extendTo(c_1, c_0, boundary, ppd.getDistance()/3), false);
         }
         return edge.getFactory().createLineString(cl.toCoordinateArray());
     }
