@@ -38,6 +38,8 @@ import com.vividsolutions.jump.workbench.plugin.PlugInContext;
  * @author Micha&euml;l Michaud
  * @version 2.0.1 (2022-03-09)
  */
+//version 2.0.3 (2022-10-05) Fix bug in GraphNodesPlugIn
+//version 2.0.2 (2022-08-27) Fix compatibility issue with JTS 1.19 and set I18N to UTF-8
 //version 2.0.1 (2022-03-09) Resources encoding
 //version 2.0.0 (2022-03-01) Complete refactoring for OpenJUMP 2.0
 //version 1.1.0 (2021-08-08) Refactoring to use new I18N and FeatureInstaller

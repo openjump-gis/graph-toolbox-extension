@@ -319,8 +319,12 @@ public class GraphNodesPlugIn extends ThreadedBasePlugIn {
                         degree1 && degree == 1 ||
                         degree2 && degree == 2 ||
                         degree3p && degree > 2) {
-                    if (indegree0 && indegree != 0) continue;
-                    if (outdegree0 && outdegree != 0) continue;
+                    if (indegree0 && indegree != 0 && !outdegree0) continue;
+                    if (outdegree0 && outdegree != 0 && !indegree0) continue;
+                    // indegree0 && outdegree0 checked means one OR the other
+                    // -> continue if neither indegree nor outdegree are 0
+                    if (indegree0 && outdegree0 && indegree != 0 && outdegree !=0) continue;
+                    //if (outdegree0 && outdegree != 0) continue;
                     Feature bf = new BasicFeature(schemaNodes);
                     bf.setGeometry(node.getGeometry());
                     if (use_attribute) bf.setAttribute(attribute, k);
@@ -328,7 +332,6 @@ public class GraphNodesPlugIn extends ThreadedBasePlugIn {
                     bf.setAttribute(OUT_DEGREE, outdegree);
                     bf.setAttribute(DEGREE, degree);
                     resultNodes.add(bf);
-
                 }
             }
         }
