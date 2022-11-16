@@ -55,8 +55,9 @@ import javax.swing.JComboBox;
  * Find main components of each graph or subgraph (number of connected
  * subgraphs, length, number of order 1 nodes...).
  * @author Micha&euml;l Michaud
- * @version 0.1.2 (2011-07-16)
+ * @version 2.0.4 (2022-11-16)
  */
+//version 2.0.4 (2022-11-16) fix key attribute value when an attribute is used
 //version 0.1.2 (2011-07-16) typos and comments
 //version 0.1.1 (2010-04-22) first svn version
 //version 0.1 (2010-04-22)
@@ -277,13 +278,13 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
         
         int count = 1;
         // Loop through all graphs to analyze
-        for (Object k : map.keySet()) {
+        for (Object current_key : map.keySet()) {
             // Creates a undirected graph from the feature list
             Pseudograph<INode,FeatureAsEdge> graph =
-                GraphFactory.createUndirectedGraph(map.get(k), dim3);
+                GraphFactory.createUndirectedGraph(map.get(current_key), dim3);
 
             //List of connected components
-            List<Set<INode>> list = GraphUtil.createConnectedNodeSets(map.get(k), false, dim3);
+            List<Set<INode>> list = GraphUtil.createConnectedNodeSets(map.get(current_key), false, dim3);
 
             double graph_length = 0.0;
             //int connected_component_number = list.size();
@@ -329,7 +330,7 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
                     newf.setGeometry(DEFAULT_GEOMETRY_FACTORY
                             .buildGeometry(subgraph_geometries));
                 }
-                if (use_attribute) newf.setAttribute(attribute, key);
+                if (use_attribute) newf.setAttribute(attribute, current_key);
                 newf.setAttribute(CONNECTED_SUBGRAPH, ""+(j+1)+"/"+list.size());
                 newf.setAttribute(FEATURES, edges.size());
                 newf.setAttribute(PENDANT_VERTICES, countOrder1Nodes(graph, list.get(j)));
@@ -346,7 +347,7 @@ public class GraphComponentsPlugIn extends ThreadedBasePlugIn {
                 newf.setGeometry(DEFAULT_GEOMETRY_FACTORY
                         .buildGeometry(graph_geometries));
             }
-            if (use_attribute) newf.setAttribute(attribute, key);
+            if (use_attribute) newf.setAttribute(attribute, current_key);
             newf.setAttribute(CONNECTED_SUBGRAPHS, list.size());
             newf.setAttribute(FEATURES, total_feature_number);
             newf.setAttribute(PENDANT_VERTICES, countOrder1Nodes(graph, graph.vertexSet()));
